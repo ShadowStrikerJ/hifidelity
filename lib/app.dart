@@ -6,6 +6,7 @@ import 'package:hifidelity/screens/landing/landing_screen.dart';
 import 'package:hifidelity/screens/register/register_screen.dart';
 import 'package:hifidelity/screens/settings/settings_screen.dart';
 import 'package:hifidelity/services/localization/localization_service.dart';
+import 'package:hifidelity/services/auth/auth_bloc.dart';
 
 class AppScreen extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class AppScreen extends StatefulWidget {
 class _AppScreenState extends State<AppScreen> {
   GlobalKey<RegisterScreenState> registerScreenKey = GlobalKey();
   final localizationService = LocalizationService();
+  final authenticationBloc = AuthenticationBloc();
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _AppScreenState extends State<AppScreen> {
     return AppInheritedWidget(
       localization: localizationService,
       valueChanged: onInheritedWidgetValueChanged,
+      authBloc: authenticationBloc,
       child: child,
     );
   }

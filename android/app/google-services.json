@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "798155468878",
+    "firebase_url": "https://hifidelity-7tk.firebaseio.com",
+    "project_id": "hifidelity-7tk",
+    "storage_bucket": "hifidelity-7tk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798155468878:android:6cf1424db72fa604",
+        "android_client_info": {
+          "package_name": "com.example.hifidelity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798155468878-gq6ckibgmct6crtodikbrslknrj4tlbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfJT7NTD3qYm5PQKzcpa-KQt7DDxY1HiM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

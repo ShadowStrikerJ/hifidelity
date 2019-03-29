@@ -11,6 +11,21 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
+  @override
+  void didChangeDependencies() {
+    
+    // Hook up for successful login
+    AppInheritedWidget.of(context).authBloc.successfulLogin.listen((result) {
+      if (result)
+      {
+        Navigator.of(context).pushReplacementNamed('dashboard');
+      }
+    });
+
+    
+    super.didChangeDependencies();
+  }
+
   void drawerLanguageButtonPressed() {
     _scaffoldKey.currentState.openEndDrawer();
   }
@@ -93,14 +108,21 @@ class _LandingScreenState extends State<LandingScreen> {
             widthFactor: 0.8,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
-              child:  TextField(
-                decoration: InputDecoration(
-                  hintText: AppInheritedWidget.of(cxt).text('Email', category: 'login'),
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                style: TextStyle(color: Colors.white),
+              child:  StreamBuilder<Object>(
+                stream: AppInheritedWidget.of(cxt).authBloc.email,
+                builder: (context, snapshot) {
+                  return TextField(
+                    onChanged: AppInheritedWidget.of(cxt).authBloc.emailChanged,
+                    decoration: InputDecoration(
+                      errorText: snapshot.error,
+                      hintText: AppInheritedWidget.of(cxt).text('Email', category: 'login'),
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: TextStyle(color: Colors.white),
+                  );
+                }
               ),
             ),
           ),
@@ -108,12 +130,19 @@ class _LandingScreenState extends State<LandingScreen> {
             widthFactor: 0.8,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
-              child:  TextField(
-                decoration: InputDecoration(
-                  hintText: AppInheritedWidget.of(cxt).text('Password', category: 'login'),
-                ),
-                style: TextStyle(color: Colors.white),
-                obscureText: true,
+              child:  StreamBuilder<Object>(
+                stream: AppInheritedWidget.of(cxt).authBloc.password,
+                builder: (context, snapshot) {
+                  return TextField(
+                    onChanged: AppInheritedWidget.of(cxt).authBloc.passwordChanged,
+                    decoration: InputDecoration(
+                      hintText: AppInheritedWidget.of(cxt).text('Password', category: 'login'),
+                      errorText: snapshot.error
+                    ),
+                    style: TextStyle(color: Colors.white),
+                    obscureText: true,
+                  );
+                }
               ),
             ),
           ),
@@ -121,9 +150,14 @@ class _LandingScreenState extends State<LandingScreen> {
           Center(
             child: FractionallySizedBox(
               widthFactor: 0.6,
-              child: RaisedButton(
-                onPressed: loginButtonPressed,
-                child: Text(AppInheritedWidget.of(cxt).text('Login', category: 'login')),
+              child: StreamBuilder<Object>(
+                stream: AppInheritedWidget.of(cxt).authBloc.submitCheck,
+                builder: (context, snapshot) {
+                  return RaisedButton(
+                    onPressed: snapshot.hasData ? AppInheritedWidget.of(cxt).authBloc.submit : null,
+                    child: Text(AppInheritedWidget.of(cxt).text('Login', category: 'login')),
+                  );
+                }
               ),
             ),
           ),

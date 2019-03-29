@@ -1,14 +1,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:hifidelity/services/localization/localization_service.dart';
+import 'package:hifidelity/services/auth/auth_bloc.dart';
 
 class AppInheritedWidget extends InheritedWidget {
   final LocalizationService localization;
   final VoidCallback valueChanged;
+  final AuthenticationBloc authBloc;
 
   const AppInheritedWidget({
     Key key,
     @required this.localization,
+    @required this.authBloc,
     @required this.valueChanged,
     @required Widget child,
   }) : assert(localization != null),
